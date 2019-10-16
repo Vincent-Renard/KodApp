@@ -8,7 +8,7 @@ import androidx.room.PrimaryKey;
 
 import java.util.Date;
 
-@Entity
+@Entity(tableName = "positions")
 public class PositionUser {
     @PrimaryKey(autoGenerate = true)
     private int id;
