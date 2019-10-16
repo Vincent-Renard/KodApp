@@ -1,5 +1,6 @@
 package fr.univorleans.etu.renardez.kodapp;
 
+import android.Manifest;
 import android.content.Context;
 import android.location.Location;
 import android.location.LocationListener;
@@ -9,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
 public class MainActivity extends AppCompatActivity implements LocationListener {
 
@@ -23,6 +25,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
 
     void getLocation() {
         try {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
             LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
             locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 500, 5, this);
 
