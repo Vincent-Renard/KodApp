@@ -11,6 +11,8 @@
 * Sauvegarder activement la position courante de l'utilisateur  
 * Afficher liste des enregistrements
     * Obtenir les détails d'un enregistrement
+        * long - lat-date-heure
+        * addresse de la position
     * Map / itinéraire vers un enregistrement
 * Afficher Map des enregistrements
 
