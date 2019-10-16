@@ -27,26 +27,26 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         try {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
             LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 500, 5, this);
-
+            currentLocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
         } catch (SecurityException e) {
             e.printStackTrace();
         }
+
     }
 
     public void clickPos(View view) {
         //TODO
+
         getLocation();
-        //Log.i("BUTTON_POS","Lat "+currentLocation.getLatitude()+"Long "+currentLocation.getLongitude()+" Alt "+currentLocation.getAltitude());
+        Log.i("BUTTON_POS", "Lat " + currentLocation.getLatitude() + "Long " + currentLocation.getLongitude() + " Alt " + currentLocation.getAltitude());
 
     }
 
     @Override
     public void onLocationChanged(Location location) {
         currentLocation = location;
-        Log.i("BUTTON_POS", "Lat " + currentLocation.getLatitude() + "Long " + currentLocation.getLongitude() + " Alt " + currentLocation.getAltitude());
+        // Log.i("BUTTON_POS", "Lat " + currentLocation.getLatitude() + "Long " + currentLocation.getLongitude() + " Alt " + currentLocation.getAltitude());
 
-        //currentLocation=location;
     }
 
     @Override

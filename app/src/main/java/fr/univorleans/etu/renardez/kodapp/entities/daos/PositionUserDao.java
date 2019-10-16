@@ -20,7 +20,7 @@ public interface PositionUserDao {
     List<PositionUser> getSomePu(int... ids);
 
     @Insert
-    int insertPos(PositionUser positionUser);
+    long insertPos(PositionUser positionUser);
 
     @Update
     int updatePos(PositionUser positionUser);
