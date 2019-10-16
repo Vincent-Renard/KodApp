@@ -12,11 +12,14 @@ import android.view.View;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
+import fr.univorleans.etu.renardez.kodapp.db.Frigo;
+import fr.univorleans.etu.renardez.kodapp.entities.PositionUser;
+
 public class MainActivity extends AppCompatActivity implements LocationListener {
 
     private LocationManager locationManager;
     private Location currentLocation;
-
+    private Frigo base = Frigo.getInstance(this);
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,7 +42,8 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
 
         getLocation();
         Log.i("BUTTON_POS", "Lat " + currentLocation.getLatitude() + "Long " + currentLocation.getLongitude() + " Alt " + currentLocation.getAltitude());
-
+        base.positionUserDao().insertPos(new PositionUser(currentLocation, "AUTO"));
+        System.out.println(base.positionUserDao().getAllPU().get(0).toString());
     }
 
     @Override
