@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">KodApp</string>
+    <string name="button_position_txt">Position</string>
 </resources>
