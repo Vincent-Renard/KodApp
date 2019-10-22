@@ -1,7 +1,5 @@
 <resources>
     <string name="app_name">KodApp</string>
     <string name="button_position_txt">Position</string>
-    <string name="request_permission_dialog">Please accept location permission in order to be able to use our application.</string>
     <string name="ok">OK</string>
-    <string name="permission_refused">Without location permission, we are unable to get your position. Please accept location permission in settings.</string>
 </resources>

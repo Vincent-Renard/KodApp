@@ -31,40 +31,12 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
     }
 
-    public void requestLocationPermission() {
+    public void getLocation() {
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.ACCESS_FINE_LOCATION)) {
-                Log.i("LOCATION_REQUEST", "Permission previously refused");
-                final MainActivity self = this;
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        new AlertDialog.Builder(self)
-                            .setMessage(R.string.request_permission_dialog)
-                            .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    ActivityCompat.requestPermissions(self, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, PERMISSION_REQUEST_ACCESS_FINE_LOCATION);
-                                }
-                            })
-                            .create()
-                            .show();
-                    }
-                });
-            }
-            else {
-                Log.i("LOCATION_REQUEST", "Permission requested");
-                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, PERMISSION_REQUEST_ACCESS_FINE_LOCATION);
-            }
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, PERMISSION_REQUEST_ACCESS_FINE_LOCATION);
+            return;
         }
-        else {
-            Log.i("LOCATION_REQUEST", "Permission already granted");
-            getLocation();
-        }
-    }
 
-    @SuppressLint("MissingPermission")
-    void getLocation() {
         locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 3000, 0, this);
         currentLocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
         if (currentLocation != null) {
@@ -73,7 +45,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
     }
 
     public void clickPos(View view) {
-        requestLocationPermission();
+        getLocation();
     }
 
     @Override
@@ -94,29 +66,5 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
     @Override
     public void onProviderDisabled(String provider) {
 
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        switch (requestCode) {
-            case PERMISSION_REQUEST_ACCESS_FINE_LOCATION:
-                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    getLocation();
-                }
-                else {
-                    final MainActivity self = this;
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            new AlertDialog.Builder(self)
-                                .setMessage(R.string.permission_refused)
-                                .setPositiveButton(R.string.ok, null)
-                                .create()
-                                .show();
-                        }
-                    });
-                }
-                break;
-        }
     }
 }
