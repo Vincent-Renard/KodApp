@@ -5,11 +5,13 @@ import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.util.Log;
 import android.view.View;
 
@@ -34,6 +36,11 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
     public void getLocation() {
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, PERMISSION_REQUEST_ACCESS_FINE_LOCATION);
+            return;
+        }
+
+        if (!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+            requestLocationProvider();
             return;
         }
 
@@ -65,6 +72,25 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
 
     @Override
     public void onProviderDisabled(String provider) {
+        requestLocationProvider();
+    }
 
+    public void requestLocationProvider() {
+        final MainActivity self = this;
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                new AlertDialog.Builder(self)
+                    .setMessage(R.string.enable_location)
+                    .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS));
+                        }
+                    })
+                    .create()
+                    .show();
+            }
+        });
     }
 }

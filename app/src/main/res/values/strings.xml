@@ -2,4 +2,5 @@
     <string name="app_name">KodApp</string>
     <string name="button_position_txt">Position</string>
     <string name="ok">OK</string>
+    <string name="enable_location">Please enable your GPS.</string>
 </resources>
