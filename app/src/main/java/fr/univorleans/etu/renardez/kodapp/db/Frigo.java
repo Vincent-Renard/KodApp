@@ -19,7 +19,7 @@ public abstract class Frigo extends RoomDatabase {
         if (THAT_BASE == null) {
             synchronized (Frigo.class) {
                 if (THAT_BASE == null)
-                    THAT_BASE = Room.databaseBuilder(c.getApplicationContext(), Frigo.class, DB_NAME + ".sqlite3").build();
+                    THAT_BASE = Room.databaseBuilder(c, Frigo.class, DB_NAME + ".sqlite3").build();
             }
         }
         return THAT_BASE;

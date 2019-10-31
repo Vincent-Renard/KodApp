@@ -23,6 +23,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
 
     private LocationManager locationManager;
     private Location currentLocation;
+    //private Frigo base = Frigo.getInstance(this.getApplicationContext());
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +52,9 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
 
     public void clickPos(View view) {
         getLocation();
+        //Log.i("BUTTON_POS", "Lat " + currentLocation.getLatitude() + "Long " + currentLocation.getLongitude() + " Alt " + currentLocation.getAltitude());
+        //base.positionUserDao().insertPos(new PositionUser(currentLocation, "AUTO"));
+        //System.out.println(base.positionUserDao().getAllPU().get(0).toString());
     }
 
     @Override
