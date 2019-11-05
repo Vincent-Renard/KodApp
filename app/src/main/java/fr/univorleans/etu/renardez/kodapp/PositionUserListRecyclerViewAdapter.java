@@ -39,14 +39,14 @@ class PositionUserListRecyclerViewAdapter extends RecyclerView.Adapter<PositionU
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public final View mView;
-        public final TextView mIdView;
+        //  public final TextView mIdView;
         public final TextView mContentView;
         public PositionUser mItem;
 
         public ViewHolder(View view) {
             super(view);
             mView = view;
-            mIdView = (TextView) view.findViewById(R.id.id_item);
+            // mIdView = (TextView) view.findViewById(R.id.id_item);
             mContentView = (TextView) view.findViewById(R.id.content);
         }
 
