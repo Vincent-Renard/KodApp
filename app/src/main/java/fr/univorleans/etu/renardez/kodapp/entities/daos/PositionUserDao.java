@@ -17,7 +17,7 @@ public interface PositionUserDao {
     List<PositionUser> getAllPU();
 
     @Query("SELECT * FROM positions WHERE id = :ids")
-    List<PositionUser> getSomePu(int... ids);
+    List<PositionUser> getSomePu(long... ids);
 
     @Insert
     long insertPos(PositionUser positionUser);

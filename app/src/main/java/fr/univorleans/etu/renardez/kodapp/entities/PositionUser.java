@@ -7,7 +7,6 @@ import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
 import java.util.Date;
-
 @Entity(tableName = "positions")
 public class PositionUser {
     @PrimaryKey(autoGenerate = true)
@@ -32,6 +31,7 @@ public class PositionUser {
     public PositionUser() {
     }
 
+    //TODO suppr si no need
     public PositionUser(double longitude, double latitude, double atltitude, Date date, String details) {
         this.longitude = longitude;
         this.latitude = latitude;
@@ -42,6 +42,7 @@ public class PositionUser {
 
 
     public PositionUser(Location location, String details) {
+        this.id = 0;
         this.longitude = location.getLongitude();
         this.latitude = location.getLatitude();
         this.atltitude = location.hasAltitude() ? location.getAltitude() : 0.0;
@@ -95,5 +96,17 @@ public class PositionUser {
 
     public void setDetails(String details) {
         this.details = details;
+    }
+
+    @Override
+    public String toString() {
+        return "PositionUser{" +
+                "id=" + id +
+                ", longitude=" + longitude +
+                ", latitude=" + latitude +
+                ", atltitude=" + atltitude +
+                ", date=" + date +
+                ", details='" + details + '\'' +
+                '}';
     }
 }
