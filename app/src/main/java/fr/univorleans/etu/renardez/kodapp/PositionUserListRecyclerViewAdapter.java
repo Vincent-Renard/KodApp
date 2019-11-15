@@ -1,5 +1,6 @@
 package fr.univorleans.etu.renardez.kodapp;
 
+import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -9,16 +10,20 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
+import fr.univorleans.etu.renardez.kodapp.db.Frigo;
 import fr.univorleans.etu.renardez.kodapp.entities.PositionUser;
 
 class PositionUserListRecyclerViewAdapter extends RecyclerView.Adapter<PositionUserListRecyclerViewAdapter.ViewHolder> {
 
     private final List<PositionUser> losPos;
     private final PositionsFragment.OnListFragmentInteractionListener elListener;
+    private Frigo frigo;
 
-    PositionUserListRecyclerViewAdapter(List<PositionUser> losPos, PositionsFragment.OnListFragmentInteractionListener elListener) {
+    PositionUserListRecyclerViewAdapter(List<PositionUser> losPos, PositionsFragment.OnListFragmentInteractionListener elListener, Context context) {
         this.losPos = losPos;
         this.elListener = elListener;
+        frigo = Frigo.getInstance(context);
+
     }
 
     @NonNull

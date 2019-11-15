@@ -34,7 +34,7 @@ public class PositionsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view;
+        View view = null;
         //View view = inflater.inflate(R.layout.pu_liste_frag, container, false);
 
         // Set the adapter
@@ -46,7 +46,7 @@ public class PositionsFragment extends Fragment {
                 positionUserList = new ArrayList<>();
             }
             if (pulRecyclerViewAdapter == null)
-                pulRecyclerViewAdapter = new PositionUserListRecyclerViewAdapter(positionUserList, positionUserListeListener);
+                pulRecyclerViewAdapter = new PositionUserListRecyclerViewAdapter(positionUserList, positionUserListeListener, getActivity().getApplicationContext());
             recyclerView.setAdapter(pulRecyclerViewAdapter);
         }
         return view;

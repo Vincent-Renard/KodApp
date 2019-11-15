@@ -3,4 +3,5 @@
     <string name="button_position_txt">Position</string>
     <string name="ok">OK</string>
     <string name="enable_location">Please enable your GPS.</string>
+    <string name="button_clean_base_menu">Clear</string>
 </resources>
