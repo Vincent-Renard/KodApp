@@ -36,4 +36,12 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
+
+    public void goToAddPos(View view) {
+        //TODO go to add pos act
+    }
+
+    public void goToListPos(View view) {
+    }
 }
