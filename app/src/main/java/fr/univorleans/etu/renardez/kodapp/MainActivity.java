@@ -43,5 +43,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void goToListPos(View view) {
+        //TODO GOTO LIST POS
     }
 }

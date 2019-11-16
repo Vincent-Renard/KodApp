@@ -13,6 +13,9 @@ import android.os.Bundle;
 import android.provider.Settings;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -28,14 +31,23 @@ public class AddLocActivity extends AppCompatActivity implements LocationListene
     private LocationManager locationManager;
     private Location currentLocation;
     private Frigo base;
-    //(MainActivity.this.getApplicationContext());
 
+    private Spinner spinner;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         base = Frigo.getInstance(getApplicationContext());
+        spinner = (Spinner) findViewById(R.id.detail_loc_spinner);
+
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+                R.array.details_list, android.R.layout.simple_spinner_item);
+// Specify the layout to use when the list of choices appears
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+// Apply the adapter to the spinner
+        spinner.setAdapter(adapter);
+        // spinner.setOnItemSelectedListener(this);
     }
 
     public void getLocation() {
@@ -51,7 +63,7 @@ public class AddLocActivity extends AppCompatActivity implements LocationListene
             return;
         }
 
-        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 3000, 0, this);
+        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 30, 0, this);
         currentLocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
         if (currentLocation != null) {
             Log.i("BUTTON_POS", " Lat " + currentLocation.getLatitude() + " Long " + currentLocation.getLongitude() + " Alt " + currentLocation.getAltitude());
@@ -74,6 +86,14 @@ public class AddLocActivity extends AppCompatActivity implements LocationListene
         }
     }
 
+    public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
+        // An item was selected. You can retrieve the selected item using
+        // parent.getItemAtPosition(pos)
+    }
+
+    public void onNothingSelected(AdapterView<?> parent) {
+        // Another interface callback
+    }
     @Override
     public void onLocationChanged(Location location) {
         currentLocation = location;

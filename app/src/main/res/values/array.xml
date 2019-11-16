@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+
+    <string-array name="details_list">
+        <item> Voiture </item>
+        <item>Maison </item>
+        <item>Fils</item>
+        <item>Work </item>
+        <item>Fille</item>
+
+    </string-array>
+</resources>
