@@ -1,5 +1,6 @@
 package fr.univorleans.etu.renardez.kodapp;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -40,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void goToAddPos(View view) {
         //TODO go to add pos act
+        startActivity(new Intent(this, AddLocActivity.class));
     }
 
     public void goToListPos(View view) {

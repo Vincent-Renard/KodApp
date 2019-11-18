@@ -36,7 +36,7 @@ public class AddLocActivity extends AppCompatActivity implements LocationListene
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_add_loc);
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         base = Frigo.getInstance(getApplicationContext());
         spinner = (Spinner) findViewById(R.id.detail_loc_spinner);
