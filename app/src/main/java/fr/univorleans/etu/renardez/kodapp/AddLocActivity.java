@@ -10,6 +10,7 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.provider.Settings;
 import android.util.Log;
 import android.view.View;
@@ -23,6 +24,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
+import org.osmdroid.api.IMapController;
+import org.osmdroid.config.Configuration;
+import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
+import org.osmdroid.util.GeoPoint;
+import org.osmdroid.views.CustomZoomButtonsController;
+import org.osmdroid.views.MapView;
+import org.osmdroid.views.overlay.Marker;
+
 import fr.univorleans.etu.renardez.kodapp.db.Frigo;
 import fr.univorleans.etu.renardez.kodapp.entities.PositionUser;
 
@@ -35,17 +44,21 @@ public class AddLocActivity extends AppCompatActivity implements LocationListene
 
     private Spinner spinner;
     private EditText otherEditText;
+    private MapView map;
 
     private String[] detailsList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Configuration.getInstance().load(getApplicationContext(), PreferenceManager.getDefaultSharedPreferences(getApplicationContext()));
         setContentView(R.layout.activity_add_loc);
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         base = Frigo.getInstance(getApplicationContext());
         spinner = (Spinner) findViewById(R.id.detail_loc_spinner);
         otherEditText = findViewById(R.id.other_edit_text);
+        map = findViewById(R.id.map);
+        map.setTileSource(TileSourceFactory.MAPNIK);
 
         detailsList = getResources().getStringArray(R.array.details_list);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
@@ -55,6 +68,22 @@ public class AddLocActivity extends AppCompatActivity implements LocationListene
 // Apply the adapter to the spinner
         spinner.setAdapter(adapter);
         spinner.setOnItemSelectedListener(this);
+
+        map.getZoomController().setVisibility(CustomZoomButtonsController.Visibility.SHOW_AND_FADEOUT);
+        map.setMultiTouchControls(true);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        map.onResume();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        locationManager.removeUpdates(this);
+        map.onPause();
     }
 
     public void getLocation() {
@@ -110,6 +139,15 @@ public class AddLocActivity extends AppCompatActivity implements LocationListene
     @Override
     public void onLocationChanged(Location location) {
         currentLocation = location;
+        IMapController controller = map.getController();
+        controller.setZoom(18.0);
+        GeoPoint startPoint = new GeoPoint(currentLocation);
+        controller.setCenter(startPoint);
+        Marker startMarker = new Marker(map);
+        startMarker.setPosition(startPoint);
+        startMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
+        map.getOverlays().clear();
+        map.getOverlays().add(startMarker);
     }
 
     @Override
