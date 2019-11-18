@@ -8,6 +8,6 @@
         <item>Fils</item>
         <item>Work </item>
         <item>Fille</item>
-
+        <item>@string/other</item>
     </string-array>
 </resources>

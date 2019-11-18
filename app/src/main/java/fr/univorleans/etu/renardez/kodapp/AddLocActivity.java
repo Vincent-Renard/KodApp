@@ -15,6 +15,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.Spinner;
 
 import androidx.appcompat.app.AlertDialog;
@@ -25,7 +26,7 @@ import androidx.core.content.ContextCompat;
 import fr.univorleans.etu.renardez.kodapp.db.Frigo;
 import fr.univorleans.etu.renardez.kodapp.entities.PositionUser;
 
-public class AddLocActivity extends AppCompatActivity implements LocationListener {
+public class AddLocActivity extends AppCompatActivity implements LocationListener, AdapterView.OnItemSelectedListener {
     public static final int PERMISSION_REQUEST_ACCESS_FINE_LOCATION = 1;
 
     private LocationManager locationManager;
@@ -33,6 +34,10 @@ public class AddLocActivity extends AppCompatActivity implements LocationListene
     private Frigo base;
 
     private Spinner spinner;
+    private EditText otherEditText;
+
+    private String[] detailsList;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,14 +45,16 @@ public class AddLocActivity extends AppCompatActivity implements LocationListene
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         base = Frigo.getInstance(getApplicationContext());
         spinner = (Spinner) findViewById(R.id.detail_loc_spinner);
+        otherEditText = findViewById(R.id.other_edit_text);
 
+        detailsList = getResources().getStringArray(R.array.details_list);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
                 R.array.details_list, android.R.layout.simple_spinner_item);
 // Specify the layout to use when the list of choices appears
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 // Apply the adapter to the spinner
         spinner.setAdapter(adapter);
-        // spinner.setOnItemSelectedListener(this);
+        spinner.setOnItemSelectedListener(this);
     }
 
     public void getLocation() {
@@ -86,14 +93,20 @@ public class AddLocActivity extends AppCompatActivity implements LocationListene
         }
     }
 
-    public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
-        // An item was selected. You can retrieve the selected item using
-        // parent.getItemAtPosition(pos)
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        otherEditText.setVisibility(
+            (position == detailsList.length - 1)
+                ? View.VISIBLE
+                : View.GONE
+        );
     }
 
+    @Override
     public void onNothingSelected(AdapterView<?> parent) {
-        // Another interface callback
+
     }
+
     @Override
     public void onLocationChanged(Location location) {
         currentLocation = location;

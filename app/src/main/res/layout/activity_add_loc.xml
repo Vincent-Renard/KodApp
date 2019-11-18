@@ -30,6 +30,15 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content" />
 
+        <EditText
+            android:id="@+id/other_edit_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:inputType="text"
+            android:importantForAutofill="no"
+            android:hint="@string/other" />
+
         <TextView
             android:id="@+id/textView"
             android:layout_width="match_parent"
