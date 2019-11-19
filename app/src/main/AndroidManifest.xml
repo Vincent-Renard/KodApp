@@ -14,7 +14,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".AddLocActivity"></activity>
+        <activity android:name=".PlaceDetailsActivity"></activity>
+        <activity android:name=".AddLocActivity" />
         <activity android:name=".PositionListActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
