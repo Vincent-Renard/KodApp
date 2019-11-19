@@ -40,11 +40,12 @@ public class MainActivity extends AppCompatActivity {
 
 
     public void goToAddPos(View view) {
-        //TODO go to add pos act
         startActivity(new Intent(this, AddLocActivity.class));
     }
 
     public void goToListPos(View view) {
         //TODO GOTO LIST POS
+        startActivity(new Intent(this, PositionListActivity.class));
+
     }
 }

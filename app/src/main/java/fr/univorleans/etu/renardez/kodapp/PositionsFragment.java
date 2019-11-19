@@ -35,7 +35,8 @@ public class PositionsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = null;
-        //View view = inflater.inflate(R.layout.pu_liste_frag, container, false);
+        inflater.inflate(R.layout.activity_position_list, container, false);
+        view = inflater.inflate(R.layout.activity_position_list, container, false);
 
         // Set the adapter
         if (view instanceof RecyclerView) {
