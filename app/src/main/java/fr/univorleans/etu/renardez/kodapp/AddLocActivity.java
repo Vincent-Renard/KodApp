@@ -55,7 +55,7 @@ public class AddLocActivity extends AppCompatActivity implements LocationListene
         setContentView(R.layout.activity_add_loc);
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         base = Frigo.getInstance(getApplicationContext());
-        spinner = (Spinner) findViewById(R.id.detail_loc_spinner);
+        spinner = findViewById(R.id.detail_loc_spinner);
         otherEditText = findViewById(R.id.other_edit_text);
         map = findViewById(R.id.map);
         map.setTileSource(TileSourceFactory.MAPNIK);

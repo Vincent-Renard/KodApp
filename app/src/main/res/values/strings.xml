@@ -7,4 +7,9 @@
     <string name="button_add_pos_menu">Add Pos</string>
     <string name="button_goto_list_menu">Go Liste</string>
     <string name="other">Other</string>
+    <string name="car">Car</string>
+    <string name="house">House</string>
+    <string name="son">Son</string>
+    <string name="work">Work</string>
+    <string name="daughter">Daughter</string>
 </resources>

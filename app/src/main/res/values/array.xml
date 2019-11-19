@@ -3,11 +3,12 @@
 
 
     <string-array name="details_list">
-        <item> Voiture </item>
-        <item>Maison </item>
-        <item>Fils</item>
-        <item>Work </item>
-        <item>Fille</item>
+        <item>@string/car</item>
+        <item>@string/house</item>
+        <item>@string/son</item>
+        <item>@string/work</item>
+        <item>@string/daughter</item>
         <item>@string/other</item>
     </string-array>
+
 </resources>
