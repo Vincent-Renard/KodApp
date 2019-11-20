@@ -19,6 +19,7 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -37,6 +38,7 @@ import fr.univorleans.etu.renardez.kodapp.entities.PositionUser;
 
 public class AddLocActivity extends AppCompatActivity implements LocationListener, AdapterView.OnItemSelectedListener {
     public static final int PERMISSION_REQUEST_ACCESS_FINE_LOCATION = 1;
+    public static final int ACTION_LOCATION_SOURCE_SETTINGS_RESULT = 2;
 
     private LocationManager locationManager;
     private Location currentLocation;
@@ -171,9 +173,16 @@ public class AddLocActivity extends AppCompatActivity implements LocationListene
                 .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS));
+                        startActivityForResult(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS), ACTION_LOCATION_SOURCE_SETTINGS_RESULT);
                     }
                 })
                 .show();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        if (requestCode == ACTION_LOCATION_SOURCE_SETTINGS_RESULT) {
+            getLocation();
+        }
     }
 }
