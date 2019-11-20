@@ -115,7 +115,12 @@ public class AddLocActivity extends AppCompatActivity implements LocationListene
             AsyncTask.execute(new Runnable() {
                 @Override
                 public void run() {
-                    long id = base.positionUserDao().insertPos(new PositionUser(currentLocation, "AUTO"));
+                    String details = (
+                        (spinner.getSelectedItemPosition() != detailsList.length - 1)
+                            ? spinner.getSelectedItem()
+                            : otherEditText.getText()
+                    ).toString();
+                    long id = base.positionUserDao().insertPos(new PositionUser(currentLocation, details));
                     System.out.println("dernier insert >" + id + " " + base.positionUserDao().getAllPU().get(base.positionUserDao().getAllPU().size() - 1).toString());
                     System.out.println(base.positionUserDao().getSomePu(id).get(0));
                 }
