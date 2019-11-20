@@ -74,6 +74,8 @@ public class AddLocActivity extends AppCompatActivity implements LocationListene
 
         map.getZoomController().setVisibility(CustomZoomButtonsController.Visibility.SHOW_AND_FADEOUT);
         map.setMultiTouchControls(true);
+        map.setVerticalMapRepetitionEnabled(false);
+        map.getController().setZoom(2.0);
     }
 
     @Override
