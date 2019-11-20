@@ -14,9 +14,11 @@ import fr.univorleans.etu.renardez.kodapp.entities.PositionUser;
 
 public class PositionListRecyclerViewAdapter extends RecyclerView.Adapter<PositionListRecyclerViewAdapter.ViewHolder> {
     private final List<PositionUser> positions;
+    private final PositionListFragment.OnPositionListItemClickListener listener;
 
-    public PositionListRecyclerViewAdapter(List<PositionUser> positions) {
+    public PositionListRecyclerViewAdapter(List<PositionUser> positions, PositionListFragment.OnPositionListItemClickListener listener) {
         this.positions = positions;
+        this.listener = listener;
     }
 
     @NonNull
@@ -29,7 +31,14 @@ public class PositionListRecyclerViewAdapter extends RecyclerView.Adapter<Positi
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.textView.setText(positions.get(position).getDetails());
+        final PositionUser pos = positions.get(position);
+        holder.textView.setText(pos.getDetails());
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                listener.onItemClick(pos);
+            }
+        });
     }
 
     @Override
