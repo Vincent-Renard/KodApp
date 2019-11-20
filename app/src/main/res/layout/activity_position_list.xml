@@ -1,20 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_gravity="center_horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".PositionListActivity">
 
     <TextView
         android:id="@+id/textView"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textAlignment="center"
         android:text="@string/position_list_title" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/position_list"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+    <fragment android:name="fr.univorleans.etu.renardez.kodapp.PositionListFragment"
+        android:id="@+id/position_list_fragment"
+        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <fragment android:name="fr.univorleans.etu.renardez.kodapp.PositionDisplayFragment"
+        android:id="@+id/position_display_fragment"
+        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 </LinearLayout>
