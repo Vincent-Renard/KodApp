@@ -1,5 +1,6 @@
 package fr.univorleans.etu.renardez.kodapp;
 
+import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -23,6 +24,8 @@ public class PositionListFragment extends Fragment {
     private RecyclerView.LayoutManager layoutManager;
     private RecyclerView.Adapter adapter;
 
+    private OnPositionListItemClickListener listener;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -37,17 +40,30 @@ public class PositionListFragment extends Fragment {
         AsyncTask.execute(new Runnable() {
             @Override
             public void run() {
-                adapter = new PositionListRecyclerViewAdapter(base.positionUserDao().getAllPU(), new OnPositionListItemClickListener() {
-                    @Override
-                    public void onItemClick(PositionUser position) {
-                        Toast.makeText(view.getContext(), position.getDetails(), Toast.LENGTH_LONG).show();
-                    }
-                });
+                adapter = new PositionListRecyclerViewAdapter(base.positionUserDao().getAllPU(), listener);
                 recyclerView.setAdapter(adapter);
             }
         });
 
         return view;
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if (context instanceof OnPositionListItemClickListener) {
+            listener = (OnPositionListItemClickListener) context;
+        }
+        else {
+            throw new RuntimeException(context.toString()
+                    + " must implement OnPositionListItemClickListener");
+        }
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        listener = null;
     }
 
     public interface OnPositionListItemClickListener {
