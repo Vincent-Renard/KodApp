@@ -45,7 +45,7 @@ public class PositionUser {
     }
 
 
-    public PositionUser(Location location, String details) {
+    public PositionUser(Location location, String label, String details) {
         this.id = 0;
         this.longitude = location.getLongitude();
         this.latitude = location.getLatitude();
@@ -105,10 +105,11 @@ public class PositionUser {
     @Override
     public String toString() {
         return "PositionUser{" +
-                "id=" + id +
-                ", longitude=" + longitude +
+                "{ " + id +
+                "} , longitude=" + longitude +
                 ", latitude=" + latitude +
                 ", altitude=" + altitude +
+                ", label='" + label + '\'' +
                 ", date=" + date +
                 ", details='" + details + '\'' +
                 '}';
