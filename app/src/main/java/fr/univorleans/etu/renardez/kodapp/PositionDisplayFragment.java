@@ -14,15 +14,29 @@ import fr.univorleans.etu.renardez.kodapp.entities.PositionUser;
 
 public class PositionDisplayFragment extends Fragment {
     private TextView labelPos;
+    private TextView datePos;
+    private TextView detailsPos;
+    private TextView dressPos;
+    private TextView coordsPos;
+
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_position_display, container, false);
-        labelPos = view.findViewById(R.id.position_display_text);
+        labelPos = view.findViewById(R.id.position_display_label);
+        detailsPos = view.findViewById(R.id.position_display_details);
+        coordsPos = view.findViewById(R.id.position_display_coords);
         return view;
     }
 
     public void updateText(PositionUser position) {
-        labelPos.setText(position.getDetails());
+        labelPos.setText(position.getLabel());
+        detailsPos.setText(position.getDetails());
+        String coords = position.getLongitude() + "\n" + position.getLatitude() + "\n" + position.getAltitude() + "m";
+        coordsPos.setText(coords);
+
+
+
     }
 }

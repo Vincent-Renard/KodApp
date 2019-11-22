@@ -36,11 +36,12 @@ public class PositionUser {
     }
 
     //TODO suppr si no need
-    public PositionUser(double longitude, double latitude, double altitude, Date date, String details) {
+    public PositionUser(double longitude, double latitude, double altitude, Date date, String label, String details) {
         this.longitude = longitude;
         this.latitude = latitude;
         this.altitude = altitude;
         this.date = date.getTime();
+        this.label = label;
         this.details = details;
     }
 
@@ -51,6 +52,7 @@ public class PositionUser {
         this.latitude = location.getLatitude();
         this.altitude = location.hasAltitude() ? location.getAltitude() : 0.0;
         this.date = System.currentTimeMillis();
+        this.label = label;
         this.details = details;
     }
 
