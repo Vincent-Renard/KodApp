@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">KodApp</string>
+    <string name="button_position_txt">Position</string>
+    <string name="ok">OK</string>
+    <string name="enable_location">Merci d\'allumer ton GPS.</string>
+    <string name="button_clean_base_menu">Vider</string>
+    <string name="button_add_pos_menu">Add Pos</string>
+    <string name="button_goto_list_menu">Go Liste</string>
+    <string name="other">Other</string>
+    <string name="car">Car</string>
+    <string name="house">House</string>
+    <string name="son">Son</string>
+    <string name="work">Work</string>
+    <string name="daughter">Daughter</string>
+    <string name="position_list_title">Position list</string>
+</resources>

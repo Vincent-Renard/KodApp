@@ -13,17 +13,16 @@ import androidx.fragment.app.Fragment;
 import fr.univorleans.etu.renardez.kodapp.entities.PositionUser;
 
 public class PositionDisplayFragment extends Fragment {
-    private TextView textView;
-
+    private TextView namePos;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_position_display, container, false);
-        textView = view.findViewById(R.id.position_display_text);
+        namePos = view.findViewById(R.id.position_display_text);
         return view;
     }
 
     public void updateText(PositionUser position) {
-        textView.setText(position.getDetails());
+        namePos.setText(position.getDetails());
     }
 }

@@ -8,6 +8,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.Date;
 import java.util.List;
 
 import fr.univorleans.etu.renardez.kodapp.entities.PositionUser;
@@ -32,7 +33,9 @@ public class PositionListRecyclerViewAdapter extends RecyclerView.Adapter<Positi
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         final PositionUser pos = positions.get(position);
-        holder.textView.setText(pos.getDetails());
+        holder.namePos.setText(pos.getDetails());
+        holder.datetimePos.setText(new Date(pos.getDate()).toString());
+
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -47,11 +50,13 @@ public class PositionListRecyclerViewAdapter extends RecyclerView.Adapter<Positi
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        public TextView textView;
+        public TextView namePos;
+        public TextView datetimePos;
 
         public ViewHolder(View itemView) {
             super(itemView);
-            textView = itemView.findViewById(R.id.item_position_list_text);
+            namePos = itemView.findViewById(R.id.item_position_list_detail);
+            datetimePos = itemView.findViewById(R.id.item_position_list_date);
         }
     }
 }
