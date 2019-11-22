@@ -13,11 +13,15 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.provider.Settings;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -45,6 +49,7 @@ public class AddLocActivity extends AppCompatActivity implements LocationListene
     private Location currentLocation;
     private Frigo base;
 
+    private Button buttonPos;
     private Spinner spinner;
     private EditText otherLabelEditText;
     private EditText detailsEditText; //Can be optional
@@ -60,8 +65,10 @@ public class AddLocActivity extends AppCompatActivity implements LocationListene
         setContentView(R.layout.activity_add_loc);
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         base = Frigo.getInstance(getApplicationContext());
+        buttonPos = findViewById(R.id.position_button);
         spinner = findViewById(R.id.detail_loc_spinner);
         otherLabelEditText = findViewById(R.id.other_edit_text);
+        detailsEditText = findViewById(R.id.details_edit_text);
         map = findViewById(R.id.map);
         map.setTileSource(TileSourceFactory.MAPNIK);
 
@@ -73,6 +80,28 @@ public class AddLocActivity extends AppCompatActivity implements LocationListene
 // Apply the adapter to the spinner
         spinner.setAdapter(adapter);
         spinner.setOnItemSelectedListener(this);
+
+        otherLabelEditText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_DONE) {
+                    detailsEditText.requestFocus();
+                    return true;
+                }
+                return false;
+            }
+        });
+
+        detailsEditText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_DONE) {
+                    buttonPos.callOnClick();
+                    return true;
+                }
+                return false;
+            }
+        });
 
         map.getZoomController().setVisibility(CustomZoomButtonsController.Visibility.SHOW_AND_FADEOUT);
         map.setMultiTouchControls(1 == 1);
@@ -121,14 +150,14 @@ public class AddLocActivity extends AppCompatActivity implements LocationListene
             AsyncTask.execute(new Runnable() {
                 @Override
                 public void run() {
-                    String details = (
+                    String label = (
                             (spinner.getSelectedItemPosition() != labelsList.length - 1)
                             ? spinner.getSelectedItem()
                                     : otherLabelEditText.getText()
                     ).toString();
-                    long id = base.positionUserDao().insertPos(new PositionUser(currentLocation, details));
-                    System.out.println("dernier insert >" + id + " " + base.positionUserDao().getAllPU().get(base.positionUserDao().getAllPU().size() - 1).toString());
-                    System.out.println(base.positionUserDao().getSomePu(id).get(0));
+                    long id = base.positionUserDao().insertPos(new PositionUser(currentLocation, label, detailsEditText.getText().toString()));
+                    Log.i("BD", "dernier insert >" + id + " " + base.positionUserDao().getAllPU().get(base.positionUserDao().getAllPU().size() - 1).toString());
+                    Log.i("BD", base.positionUserDao().getSomePu(id).get(0).toString());
                 }
             });
 

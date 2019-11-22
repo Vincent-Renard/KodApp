@@ -12,5 +12,6 @@
     <string name="son">Son</string>
     <string name="work">Work</string>
     <string name="daughter">Daughter</string>
+    <string name="details">Details</string>
     <string name="position_list_title">Position list</string>
 </resources>

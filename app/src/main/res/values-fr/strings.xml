@@ -13,5 +13,6 @@
     <string name="son">Enfant</string>
     <string name="work">Travail </string>
     <string name="daughter">Enfant moins aimé</string>
+    <string name="details">Détails</string>
     <string name="position_list_title">Liste des positions </string>
 </resources>
