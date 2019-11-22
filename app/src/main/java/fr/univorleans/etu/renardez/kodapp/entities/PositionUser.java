@@ -19,7 +19,11 @@ public class PositionUser {
     private double latitude;
 
     @ColumnInfo(name = "altitude")
-    private double atltitude;
+    private double altitude;
+
+
+    @ColumnInfo(name = "label")
+    private String label;
 
     @ColumnInfo(name = "date")
     private long date;
@@ -32,10 +36,10 @@ public class PositionUser {
     }
 
     //TODO suppr si no need
-    public PositionUser(double longitude, double latitude, double atltitude, Date date, String details) {
+    public PositionUser(double longitude, double latitude, double altitude, Date date, String details) {
         this.longitude = longitude;
         this.latitude = latitude;
-        this.atltitude = atltitude;
+        this.altitude = altitude;
         this.date = date.getTime();
         this.details = details;
     }
@@ -45,7 +49,7 @@ public class PositionUser {
         this.id = 0;
         this.longitude = location.getLongitude();
         this.latitude = location.getLatitude();
-        this.atltitude = location.hasAltitude() ? location.getAltitude() : 0.0;
+        this.altitude = location.hasAltitude() ? location.getAltitude() : 0.0;
         this.date = System.currentTimeMillis();
         this.details = details;
     }
@@ -66,12 +70,12 @@ public class PositionUser {
         this.latitude = latitude;
     }
 
-    public double getAtltitude() {
-        return atltitude;
+    public double getAltitude() {
+        return altitude;
     }
 
-    public void setAtltitude(double atltitude) {
-        this.atltitude = atltitude;
+    public void setAltitude(double altitude) {
+        this.altitude = altitude;
     }
 
     public int getId() {
@@ -104,7 +108,7 @@ public class PositionUser {
                 "id=" + id +
                 ", longitude=" + longitude +
                 ", latitude=" + latitude +
-                ", atltitude=" + atltitude +
+                ", altitude=" + altitude +
                 ", date=" + date +
                 ", details='" + details + '\'' +
                 '}';

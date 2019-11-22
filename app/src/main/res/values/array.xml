@@ -2,7 +2,7 @@
 <resources>
 
 
-    <string-array name="details_list">
+    <string-array name="labels_list">
         <item>@string/car</item>
         <item>@string/house</item>
         <item>@string/son</item>

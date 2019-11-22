@@ -33,7 +33,7 @@ public class PositionListRecyclerViewAdapter extends RecyclerView.Adapter<Positi
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         final PositionUser pos = positions.get(position);
-        holder.namePos.setText(pos.getDetails());
+        holder.labelPos.setText(pos.getDetails());
         holder.datetimePos.setText(new Date(pos.getDate()).toString());
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -50,12 +50,12 @@ public class PositionListRecyclerViewAdapter extends RecyclerView.Adapter<Positi
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        public TextView namePos;
+        public TextView labelPos;
         public TextView datetimePos;
 
         public ViewHolder(View itemView) {
             super(itemView);
-            namePos = itemView.findViewById(R.id.item_position_list_detail);
+            labelPos = itemView.findViewById(R.id.item_position_list_detail);
             datetimePos = itemView.findViewById(R.id.item_position_list_date);
         }
     }

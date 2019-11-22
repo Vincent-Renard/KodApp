@@ -46,10 +46,12 @@ public class AddLocActivity extends AppCompatActivity implements LocationListene
     private Frigo base;
 
     private Spinner spinner;
-    private EditText otherEditText;
+    private EditText otherLabelEditText;
+    private EditText detailsEditText; //Can be optional
+
     private MapView map;
 
-    private String[] detailsList;
+    private String[] labelsList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,13 +61,13 @@ public class AddLocActivity extends AppCompatActivity implements LocationListene
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         base = Frigo.getInstance(getApplicationContext());
         spinner = findViewById(R.id.detail_loc_spinner);
-        otherEditText = findViewById(R.id.other_edit_text);
+        otherLabelEditText = findViewById(R.id.other_edit_text);
         map = findViewById(R.id.map);
         map.setTileSource(TileSourceFactory.MAPNIK);
 
-        detailsList = getResources().getStringArray(R.array.details_list);
+        labelsList = getResources().getStringArray(R.array.labels_list);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
-                R.array.details_list, android.R.layout.simple_spinner_item);
+                R.array.labels_list, android.R.layout.simple_spinner_item);
 // Specify the layout to use when the list of choices appears
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 // Apply the adapter to the spinner
@@ -73,9 +75,10 @@ public class AddLocActivity extends AppCompatActivity implements LocationListene
         spinner.setOnItemSelectedListener(this);
 
         map.getZoomController().setVisibility(CustomZoomButtonsController.Visibility.SHOW_AND_FADEOUT);
-        map.setMultiTouchControls(true);
+        map.setMultiTouchControls(1 == 1);
         map.setVerticalMapRepetitionEnabled(false);
-        map.getController().setZoom(2.0);
+        map.setHorizontalMapRepetitionEnabled(false);
+        map.getController().setZoom(2.5);
     }
 
     @Override
@@ -113,14 +116,15 @@ public class AddLocActivity extends AppCompatActivity implements LocationListene
 
     public void clickPos(View view) {
         getLocation();
+        //TODO si le mec entre une chaine vide ("est con" - Romain Guidez)
         if (currentLocation != null) {
             AsyncTask.execute(new Runnable() {
                 @Override
                 public void run() {
                     String details = (
-                        (spinner.getSelectedItemPosition() != detailsList.length - 1)
+                            (spinner.getSelectedItemPosition() != labelsList.length - 1)
                             ? spinner.getSelectedItem()
-                            : otherEditText.getText()
+                                    : otherLabelEditText.getText()
                     ).toString();
                     long id = base.positionUserDao().insertPos(new PositionUser(currentLocation, details));
                     System.out.println("dernier insert >" + id + " " + base.positionUserDao().getAllPU().get(base.positionUserDao().getAllPU().size() - 1).toString());
@@ -128,14 +132,14 @@ public class AddLocActivity extends AppCompatActivity implements LocationListene
                 }
             });
 
-
+            otherLabelEditText.getText().clear();
         }
     }
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        otherEditText.setVisibility(
-            (position == detailsList.length - 1)
+        otherLabelEditText.setVisibility(
+                (position == labelsList.length - 1)
                 ? View.VISIBLE
                 : View.GONE
         );
