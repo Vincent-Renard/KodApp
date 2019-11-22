@@ -4,14 +4,14 @@
     <string name="button_position_txt">Position</string>
     <string name="ok">OK</string>
     <string name="enable_location">Merci d\'allumer ton GPS.</string>
-    <string name="button_clean_base_menu">Vider</string>
-    <string name="button_add_pos_menu">Add Pos</string>
+    <string name="button_clean_base_menu">Vidanger</string>
+    <string name="button_add_pos_menu">Ajouter position</string>
     <string name="button_goto_list_menu">Go Liste</string>
-    <string name="other">Other</string>
-    <string name="car">Car</string>
-    <string name="house">House</string>
-    <string name="son">Son</string>
-    <string name="work">Work</string>
-    <string name="daughter">Daughter</string>
-    <string name="position_list_title">Position list</string>
+    <string name="other">Autres..</string>
+    <string name="car">Gova </string>
+    <string name="house">Maizon</string>
+    <string name="son">Enfant</string>
+    <string name="work">Travail </string>
+    <string name="daughter">Enfant moins aimé</string>
+    <string name="position_list_title">Liste des positions </string>
 </resources>
