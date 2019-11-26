@@ -137,6 +137,7 @@ public class AddLocActivity extends AppCompatActivity implements LocationListene
         super.onResume();
         map.onResume();
         registerReceiver(networkReceiver, new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
+        getLocation();
     }
 
     @Override
