@@ -1,5 +1,6 @@
 package fr.univorleans.etu.renardez.kodapp;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -61,14 +62,15 @@ public class PositionDisplayFragment extends Fragment {
         this.context = context;
     }
 
+    @SuppressLint("SetTextI18n")
     public void updateText(PositionUser position) {
-        labelPos.setText(position.getLabel());
-        detailsPos.setText(position.getDetails());
-        datePos.setText(
-            DateFormat.format(
-                DateFormat.getBestDateTimePattern(Locale.getDefault(), "ddMMyyyy HHmmss"),
-                position.getDate()
-            )
+        labelPos.setText(" " + position.getLabel());
+        detailsPos.setText(R.string.details + " : " + position.getDetails());
+        datePos.setText(" " +
+                DateFormat.format(
+                        DateFormat.getBestDateTimePattern(Locale.getDefault(), "ddMMyyyy HHmmss"),
+                        position.getDate()
+                )
         );
         String coords = position.getLongitude() + "\n" + position.getLatitude() + "\n" + position.getAltitude() + "m";
         coordsPos.setText(coords);

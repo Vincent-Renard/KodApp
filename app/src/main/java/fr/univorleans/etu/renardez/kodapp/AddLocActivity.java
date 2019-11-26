@@ -191,6 +191,7 @@ public class AddLocActivity extends AppCompatActivity implements LocationListene
             Toast.makeText(getApplicationContext(), R.string.pos_stored, Toast.LENGTH_SHORT).show();
             otherLabelEditText.getText().clear();
 
+
         }
     }
 
