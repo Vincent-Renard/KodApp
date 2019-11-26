@@ -26,6 +26,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -166,6 +167,7 @@ public class AddLocActivity extends AppCompatActivity implements LocationListene
         if (currentLocation != null) {
             Log.i("BUTTON_POS", " Lat " + currentLocation.getLatitude() + " Long " + currentLocation.getLongitude() + " Alt " + currentLocation.getAltitude());
         }
+        Toast.makeText(getApplicationContext(), R.string.pos_stored, Toast.LENGTH_SHORT);
     }
 
     public void clickPos(View view) {
@@ -254,6 +256,7 @@ public class AddLocActivity extends AppCompatActivity implements LocationListene
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == ACTION_LOCATION_SOURCE_SETTINGS_RESULT) {
             getLocation();
         }
