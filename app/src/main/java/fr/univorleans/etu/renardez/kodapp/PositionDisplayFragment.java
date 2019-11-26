@@ -1,5 +1,7 @@
 package fr.univorleans.etu.renardez.kodapp;
 
+import android.content.Context;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.format.DateFormat;
 import android.util.Log;
@@ -24,6 +26,7 @@ import org.json.JSONObject;
 
 import java.util.Locale;
 
+import fr.univorleans.etu.renardez.kodapp.db.Frigo;
 import fr.univorleans.etu.renardez.kodapp.entities.PositionUser;
 
 public class PositionDisplayFragment extends Fragment {
@@ -36,6 +39,7 @@ public class PositionDisplayFragment extends Fragment {
     private TextView detailsPos;
     private TextView addressPos;
     private TextView coordsPos;
+    private Frigo base;
 
 
     @Nullable
