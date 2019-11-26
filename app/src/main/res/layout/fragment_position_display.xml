@@ -30,5 +30,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
-
+    <Button
+        android:id="@+id/del_pos_from_display_frag"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="removePos"
+        android:text="@string/delete_text_button_frag_details" />
 </LinearLayout>

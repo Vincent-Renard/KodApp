@@ -1,6 +1,5 @@
 package fr.univorleans.etu.renardez.kodapp;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.text.format.DateFormat;
 import android.util.Log;
@@ -48,6 +47,7 @@ public class PositionDisplayFragment extends Fragment {
         detailsPos = view.findViewById(R.id.position_display_details);
         addressPos = view.findViewById(R.id.position_display_address);
         coordsPos = view.findViewById(R.id.position_display_coords);
+        base = Frigo.getInstance(getActivity().getApplicationContext());
         return view;
     }
 
@@ -90,5 +90,18 @@ public class PositionDisplayFragment extends Fragment {
             }
         });
         queue.add(jsonObjectRequest);
+    }
+
+
+    public void delete(final PositionUser position) {
+        AsyncTask.execute(new Runnable() {
+            @Override
+            public void run() {
+                base.positionUserDao().deleteItem(position.getId());
+
+
+            }
+        });
+
     }
 }
