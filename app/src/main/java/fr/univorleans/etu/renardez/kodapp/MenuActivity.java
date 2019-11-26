@@ -17,7 +17,6 @@ public class MenuActivity extends AppCompatActivity {
 
     private Frigo base;
 
-    //TODO quand ca marche mettre un popup 'ok'
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

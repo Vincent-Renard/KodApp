@@ -20,4 +20,6 @@
     <string name="fetching_address">Récupération de l\'adresse…</string>
     <string name="db_now_empty">Vidée</string>
     <string name="delete_text_button_frag_details">Supprimer cette position</string>
+    <string name="pos_stored">Ajouté</string>
+    <string name="tag">Tag</string>
 </resources>

@@ -167,7 +167,7 @@ public class AddLocActivity extends AppCompatActivity implements LocationListene
         if (currentLocation != null) {
             Log.i("BUTTON_POS", " Lat " + currentLocation.getLatitude() + " Long " + currentLocation.getLongitude() + " Alt " + currentLocation.getAltitude());
         }
-        Toast.makeText(getApplicationContext(), R.string.pos_stored, Toast.LENGTH_SHORT);
+        Toast.makeText(getApplicationContext(), R.string.pos_stored, Toast.LENGTH_SHORT).show();
     }
 
     public void clickPos(View view) {

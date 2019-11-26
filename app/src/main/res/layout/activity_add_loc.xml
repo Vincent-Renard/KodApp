@@ -9,13 +9,10 @@
     tools:context=".AddLocActivity">
 
 
-    <Button
-        android:id="@+id/position_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:onClick="clickPos"
-            android:text="@string/button_position_txt" />
-
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/tag" />
         <Spinner
             android:id="@+id/detail_loc_spinner"
             android:layout_width="match_parent"
@@ -46,6 +43,13 @@
         android:text="@string/network_unavailable"
         android:visibility="gone"
         android:textColor="@android:color/holo_red_dark"/>
+
+    <Button
+        android:id="@+id/position_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="clickPos"
+        android:text="@string/button_position_txt" />
 
     <org.osmdroid.views.MapView
             android:id="@+id/map"
