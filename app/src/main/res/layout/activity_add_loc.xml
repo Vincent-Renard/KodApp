@@ -39,6 +39,13 @@
         android:importantForAutofill="no"
         android:inputType="textLongMessage" />
 
+    <TextView
+        android:id="@+id/network_text_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/network_unavailable"
+        android:visibility="gone"
+        android:textColor="@android:color/holo_red_dark"/>
 
     <org.osmdroid.views.MapView
             android:id="@+id/map"

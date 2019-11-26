@@ -15,4 +15,5 @@
     <string name="daughter">Enfant moins aimé</string>
     <string name="details">Détails</string>
     <string name="position_list_title">Liste des positions </string>
+    <string name="network_unavailable">Pas de connexion internet.</string>
 </resources>

@@ -1,13 +1,17 @@
 package fr.univorleans.etu.renardez.kodapp;
 
 import android.Manifest;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -45,6 +49,8 @@ public class AddLocActivity extends AppCompatActivity implements LocationListene
     public static final int PERMISSION_REQUEST_ACCESS_FINE_LOCATION = 1;
     public static final int ACTION_LOCATION_SOURCE_SETTINGS_RESULT = 2;
 
+    private BroadcastReceiver networkReceiver;
+
     private LocationManager locationManager;
     private Location currentLocation;
     private Frigo base;
@@ -53,6 +59,7 @@ public class AddLocActivity extends AppCompatActivity implements LocationListene
     private Spinner spinner;
     private EditText otherLabelEditText;
     private EditText detailsEditText; //Can be optional
+    private TextView networkTextView;
 
     private MapView map;
 
@@ -63,12 +70,27 @@ public class AddLocActivity extends AppCompatActivity implements LocationListene
         super.onCreate(savedInstanceState);
         Configuration.getInstance().load(getApplicationContext(), PreferenceManager.getDefaultSharedPreferences(getApplicationContext()));
         setContentView(R.layout.activity_add_loc);
+
+        networkReceiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+                NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
+                networkTextView.setVisibility(
+                        (networkInfo == null || !networkInfo.isConnected())
+                        ? View.VISIBLE
+                        : View.GONE
+                );
+            }
+        };
+
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         base = Frigo.getInstance(getApplicationContext());
         buttonPos = findViewById(R.id.position_button);
         spinner = findViewById(R.id.detail_loc_spinner);
         otherLabelEditText = findViewById(R.id.other_edit_text);
         detailsEditText = findViewById(R.id.details_edit_text);
+        networkTextView = findViewById(R.id.network_text_view);
         map = findViewById(R.id.map);
         map.setTileSource(TileSourceFactory.MAPNIK);
 
@@ -114,10 +136,12 @@ public class AddLocActivity extends AppCompatActivity implements LocationListene
     protected void onResume() {
         super.onResume();
         map.onResume();
+        registerReceiver(networkReceiver, new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
     }
 
     @Override
     protected void onPause() {
+        unregisterReceiver(networkReceiver);
         super.onPause();
         locationManager.removeUpdates(this);
         map.onPause();
