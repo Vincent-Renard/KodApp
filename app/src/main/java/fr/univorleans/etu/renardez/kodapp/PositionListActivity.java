@@ -10,6 +10,7 @@ public class PositionListActivity extends AppCompatActivity implements PositionL
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setTitle(R.string.position_list_title);
         setContentView(R.layout.activity_position_list);
     }
 

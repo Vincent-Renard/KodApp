@@ -1,5 +1,7 @@
 package fr.univorleans.etu.renardez.kodapp;
 
+import android.graphics.Color;
+import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import fr.univorleans.etu.renardez.kodapp.entities.PositionUser;
 
@@ -32,9 +35,27 @@ public class PositionListRecyclerViewAdapter extends RecyclerView.Adapter<Positi
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        holder.itemView.setBackgroundColor(
+                (position % 2 == 0)
+                ? Color.WHITE
+                : Color.LTGRAY
+        );
         final PositionUser pos = positions.get(position);
         holder.labelPos.setText(pos.getLabel());
         holder.datetimePos.setText(new Date(pos.getDate()).toString());
+        holder.datetimePos.setText(
+            String.format(
+                "%s\n%s",
+                DateFormat.format(
+                    DateFormat.getBestDateTimePattern(Locale.getDefault(), "ddMMyyyy"),
+                    pos.getDate()
+                ),
+                DateFormat.format(
+                    DateFormat.getBestDateTimePattern(Locale.getDefault(), "HHmmss"),
+                    pos.getDate()
+                )
+            )
+        );
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
