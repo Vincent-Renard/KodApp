@@ -2,6 +2,7 @@ package fr.univorleans.etu.renardez.kodapp;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -60,6 +61,12 @@ public class PositionDisplayFragment extends Fragment {
     public void updateText(PositionUser position) {
         labelPos.setText(position.getLabel());
         detailsPos.setText(position.getDetails());
+        datePos.setText(
+            DateFormat.format(
+                DateFormat.getBestDateTimePattern(Locale.getDefault(), "ddMMyyyy HHmmss"),
+                position.getDate()
+            )
+        );
         String coords = position.getLongitude() + "\n" + position.getLatitude() + "\n" + position.getAltitude() + "m";
         coordsPos.setText(coords);
 
