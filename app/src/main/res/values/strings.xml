@@ -14,4 +14,5 @@
     <string name="daughter">Daughter</string>
     <string name="details">Details</string>
     <string name="position_list_title">Position list</string>
+    <string name="delete_text_button_frag_details">Delete this pos</string>
 </resources>

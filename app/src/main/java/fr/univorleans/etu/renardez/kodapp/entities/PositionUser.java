@@ -35,7 +35,6 @@ public class PositionUser {
     public PositionUser() {
     }
 
-    //TODO suppr si no need
     public PositionUser(double longitude, double latitude, double altitude, Date date, String label, String details) {
         this.longitude = longitude;
         this.latitude = latitude;

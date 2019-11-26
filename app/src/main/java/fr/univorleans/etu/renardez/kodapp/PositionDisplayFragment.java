@@ -1,5 +1,6 @@
 package fr.univorleans.etu.renardez.kodapp;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,15 +11,16 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import fr.univorleans.etu.renardez.kodapp.db.Frigo;
 import fr.univorleans.etu.renardez.kodapp.entities.PositionUser;
 
 public class PositionDisplayFragment extends Fragment {
+    private Frigo base;
     private TextView labelPos;
     private TextView datePos;
     private TextView detailsPos;
     private TextView dressPos;
     private TextView coordsPos;
-
 
     @Nullable
     @Override
@@ -27,6 +29,7 @@ public class PositionDisplayFragment extends Fragment {
         labelPos = view.findViewById(R.id.position_display_label);
         detailsPos = view.findViewById(R.id.position_display_details);
         coordsPos = view.findViewById(R.id.position_display_coords);
+        base = Frigo.getInstance(getActivity().getApplicationContext());
         return view;
     }
 
@@ -36,7 +39,18 @@ public class PositionDisplayFragment extends Fragment {
         String coords = position.getLongitude() + "\n" + position.getLatitude() + "\n" + position.getAltitude() + "m";
         coordsPos.setText(coords);
 
+    }
 
+
+    public void delete(final PositionUser position) {
+        AsyncTask.execute(new Runnable() {
+            @Override
+            public void run() {
+                base.positionUserDao().deleteItem(position.getId());
+
+
+            }
+        });
 
     }
 }

@@ -17,4 +17,8 @@ public class PositionListActivity extends AppCompatActivity implements PositionL
     public void onItemClick(PositionUser position) {
         ((PositionDisplayFragment) getSupportFragmentManager().findFragmentById(R.id.position_display_fragment)).updateText(position);
     }
+
+    public void removePos(PositionUser position) {
+        ((PositionDisplayFragment) getSupportFragmentManager().findFragmentById(R.id.position_display_fragment)).delete(position);
+    }
 }
