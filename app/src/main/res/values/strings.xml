@@ -18,4 +18,5 @@
     <string name="fetching_address">Fetching address…</string>
     <string name="address_request_error">Cannot retrieve address from coordinates.</string>
     <string name="delete_text_button_frag_details">Delete this pos</string>
+    <string name="db_now_empty">Clear</string>
 </resources>

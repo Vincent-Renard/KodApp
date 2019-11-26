@@ -18,4 +18,6 @@
     <string name="network_unavailable">Pas de connexion internet.</string>
     <string name="address_request_error">Impossible de récupérer l\'adresse depuis les coordonnées.</string>
     <string name="fetching_address">Récupération de l\'adresse…</string>
+    <string name="db_now_empty">Vidée</string>
+    <string name="delete_text_button_frag_details">Supprimer cette position</string>
 </resources>

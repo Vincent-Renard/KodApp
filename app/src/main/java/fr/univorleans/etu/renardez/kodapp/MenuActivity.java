@@ -5,6 +5,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -34,9 +35,11 @@ public class MenuActivity extends AppCompatActivity {
                 for (PositionUser pu : p.getAllPU()) {
                     p.deleteItem(pu.getId());
                 }
-                Log.i("CLEAR_Main", "Cleared");
+
             }
         });
+        Toast.makeText(getApplicationContext(), R.string.db_now_empty, Toast.LENGTH_SHORT).show();
+        Log.i("CLEAR_Main", "Cleared");
     }
 
 
