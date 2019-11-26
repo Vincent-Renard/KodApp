@@ -18,7 +18,6 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
 import org.json.JSONException;
@@ -70,6 +69,7 @@ public class PositionDisplayFragment extends Fragment {
         String coords = position.getLongitude() + "\n" + position.getLatitude() + "\n" + position.getAltitude() + "m";
         coordsPos.setText(coords);
 
+        addressPos.setText(R.string.fetching_address);
         String url = String.format(Locale.ENGLISH, NOMINATIM_URL, position.getLatitude(), position.getLongitude());
         RequestQueue queue = Volley.newRequestQueue(context);
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
@@ -78,13 +78,15 @@ public class PositionDisplayFragment extends Fragment {
                 try {
                     addressPos.setText(response.getString("display_name"));
                 } catch (JSONException e) {
-                    e.printStackTrace();
+                    addressPos.setText(R.string.address_request_error);
+                    Log.e("GET-ADDR", e.getMessage());
                 }
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.e("GET", "error");
+                addressPos.setText(R.string.address_request_error);
+                Log.e("GET-ADDR", error.getMessage());
             }
         });
         queue.add(jsonObjectRequest);

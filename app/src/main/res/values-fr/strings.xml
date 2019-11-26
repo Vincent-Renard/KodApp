@@ -16,4 +16,6 @@
     <string name="details">Détails</string>
     <string name="position_list_title">Liste des positions </string>
     <string name="network_unavailable">Pas de connexion internet.</string>
+    <string name="address_request_error">Impossible de récupérer l\'adresse depuis les coordonnées.</string>
+    <string name="fetching_address">Récupération de l\'adresse…</string>
 </resources>
