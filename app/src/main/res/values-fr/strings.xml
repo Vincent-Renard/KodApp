@@ -30,4 +30,5 @@
     <string name="warn_other_empty">Merci d\'entrer une étiquette</string>
     <string name="warn_no_position">Aucune position trouvée, merci de patienter ou rechercher de nouveau</string>
     <string name="searching_position">Recherche de position…</string>
+    <string name="db_already_empty">Liste des positions déjà vide</string>
 </resources>
