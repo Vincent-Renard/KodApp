@@ -39,14 +39,28 @@ public class MenuActivity extends AppCompatActivity {
         AsyncTask.execute(new Runnable() {
             @Override
             public void run() {
+
                 PositionUserDao p = base.positionUserDao();
-                for (PositionUser pu : p.getAllPU()) {
-                    p.deleteItem(pu.getId());
+                if (p.getAllPU().isEmpty()) runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(getApplicationContext(), R.string.db_already_empty, Toast.LENGTH_SHORT).show();
+                    }
+                });
+                else {
+                    for (PositionUser pu : p.getAllPU()) {
+                        p.deleteItem(pu.getId());
+                    }
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Toast.makeText(getApplicationContext(), R.string.db_now_empty, Toast.LENGTH_SHORT).show();
+                        }
+                    });
                 }
 
             }
         });
-        Toast.makeText(getApplicationContext(), R.string.db_now_empty, Toast.LENGTH_SHORT).show();
     }
 
 
