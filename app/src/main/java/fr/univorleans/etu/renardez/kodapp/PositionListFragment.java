@@ -22,7 +22,7 @@ public class PositionListFragment extends Fragment {
 
     private RecyclerView recyclerView;
     private RecyclerView.LayoutManager layoutManager;
-    private RecyclerView.Adapter adapter;
+    private PositionListRecyclerViewAdapter adapter;
 
     private OnPositionListItemClickListener listener;
 
@@ -48,8 +48,12 @@ public class PositionListFragment extends Fragment {
         return view;
     }
 
+    public void deletePosition(int position) {
+        adapter.deleteItem(position);
+    }
+
     @Override
-    public void onAttach(Context context) {
+    public void onAttach(@NonNull Context context) {
         super.onAttach(context);
         if (context instanceof OnPositionListItemClickListener) {
             listener = (OnPositionListItemClickListener) context;
@@ -67,6 +71,6 @@ public class PositionListFragment extends Fragment {
     }
 
     public interface OnPositionListItemClickListener {
-        void onItemClick(PositionUser position);
+        void onItemClick(int position, PositionUser positionUser);
     }
 }

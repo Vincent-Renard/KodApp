@@ -1,16 +1,14 @@
 package fr.univorleans.etu.renardez.kodapp;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.res.ColorStateList;
 import android.graphics.Color;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -29,12 +27,12 @@ import org.json.JSONObject;
 
 import java.util.Locale;
 
-import fr.univorleans.etu.renardez.kodapp.db.Frigo;
 import fr.univorleans.etu.renardez.kodapp.entities.PositionUser;
 
 public class PositionDisplayFragment extends Fragment {
     public static final String NOMINATIM_URL = "https://nominatim.openstreetmap.org/reverse?lat=%f&lon=%f&format=json";
 
+    private OnPositionDisplayItemDeletedListener listener;
     private Context context;
 
     private TextView labelPos;
@@ -42,45 +40,71 @@ public class PositionDisplayFragment extends Fragment {
     private TextView detailsPos;
     private TextView addressPos;
     private TextView coordsPos;
-    private Frigo base;
 
+    private Button deleteButton;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_position_display, container, false);
+
         labelPos = view.findViewById(R.id.position_display_label);
         datePos = view.findViewById(R.id.position_display_date);
         detailsPos = view.findViewById(R.id.position_display_details);
         addressPos = view.findViewById(R.id.position_display_address);
         coordsPos = view.findViewById(R.id.position_display_coords);
-        base = Frigo.getInstance(getActivity().getApplicationContext());
+
+        deleteButton = view.findViewById(R.id.del_pos_from_display_frag);
+
         return view;
     }
 
     @Override
-    public void onAttach(Context context) {
+    public void onAttach(@NonNull Context context) {
         super.onAttach(context);
         this.context = context;
+        if (context instanceof OnPositionDisplayItemDeletedListener) {
+            this.listener = (OnPositionDisplayItemDeletedListener) context;
+        }
+        else {
+            throw new RuntimeException(context.toString()
+                + " must implement OnPositionDisplayItemDeletedListener");
+        }
     }
 
-    public void updateText(PositionUser position) {
-        labelPos.setText(getString(R.string.display_label, position.getLabel()));
-        detailsPos.setText(getString(R.string.display_details, position.getDetails()));
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        listener = null;
+    }
+
+    public void updateText(final int position, final PositionUser positionUser) {
+        if (position == -1) {
+            labelPos.setText("");
+            detailsPos.setText("");
+            datePos.setText("");
+            coordsPos.setText("");
+            addressPos.setText("");
+            deleteButton.setVisibility(View.GONE);
+            return;
+        }
+
+        labelPos.setText(getString(R.string.display_label, positionUser.getLabel()));
+        detailsPos.setText(getString(R.string.display_details, positionUser.getDetails()));
         datePos.setText(getString(
             R.string.display_date,
             DateFormat.format(
                 DateFormat.getBestDateTimePattern(Locale.getDefault(), "ddMMyyyy HHmmss"),
-                position.getDate()
+                positionUser.getDate()
             )
         ));
-        coordsPos.setText(getString(R.string.display_coords, position.getLongitude(), position.getLatitude()));
+        coordsPos.setText(getString(R.string.display_coords, positionUser.getLongitude(), positionUser.getLatitude()));
 
         addressPos.setText(R.string.fetching_address);
         addressPos.setTextColor(Color.LTGRAY);
-        String url = String.format(Locale.ENGLISH, NOMINATIM_URL, position.getLatitude(), position.getLongitude());
+        String url = String.format(Locale.ENGLISH, NOMINATIM_URL, positionUser.getLatitude(), positionUser.getLongitude());
         RequestQueue queue = Volley.newRequestQueue(context);
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
+        final JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
                 try {
@@ -89,7 +113,6 @@ public class PositionDisplayFragment extends Fragment {
                 } catch (JSONException e) {
                     addressPos.setText(R.string.address_request_error);
                     addressPos.setTextColor(Color.RED);
-                    Log.e("GET-ADDR", e.getMessage());
                 }
             }
         }, new Response.ErrorListener() {
@@ -97,22 +120,21 @@ public class PositionDisplayFragment extends Fragment {
             public void onErrorResponse(VolleyError error) {
                 addressPos.setText(R.string.address_request_error);
                 addressPos.setTextColor(Color.RED);
-                Log.e("GET-ADDR", error.getMessage());
             }
         });
         queue.add(jsonObjectRequest);
-    }
 
-
-    public void delete(final PositionUser position) {
-        AsyncTask.execute(new Runnable() {
+        deleteButton.setVisibility(View.VISIBLE);
+        deleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void run() {
-                base.positionUserDao().deleteItem(position.getId());
-
-
+            public void onClick(View v) {
+                jsonObjectRequest.cancel();
+                listener.onItemDeleted(position, positionUser);
             }
         });
+    }
 
+    public interface OnPositionDisplayItemDeletedListener {
+        void onItemDeleted(int position, PositionUser positionUser);
     }
 }

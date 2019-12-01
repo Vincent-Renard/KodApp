@@ -2,6 +2,7 @@ package fr.univorleans.etu.renardez.kodapp;
 
 import android.graphics.Color;
 import android.text.format.DateFormat;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,7 +35,7 @@ public class PositionListRecyclerViewAdapter extends RecyclerView.Adapter<Positi
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
         holder.itemView.setBackgroundColor(
                 (position % 2 == 0)
                 ? Color.WHITE
@@ -55,7 +56,7 @@ public class PositionListRecyclerViewAdapter extends RecyclerView.Adapter<Positi
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                listener.onItemClick(pos);
+                listener.onItemClick(position, pos);
             }
         });
     }
@@ -63,6 +64,12 @@ public class PositionListRecyclerViewAdapter extends RecyclerView.Adapter<Positi
     @Override
     public int getItemCount() {
         return positions.size();
+    }
+
+    public void deleteItem(int position) {
+        positions.remove(position);
+        notifyDataSetChanged();
+        listener.onItemClick(-1, null);
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {

@@ -41,8 +41,8 @@
         android:id="@+id/del_pos_from_display_frag"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:onClick="removePos"
         android:background="@android:color/holo_red_light"
         android:text="@string/delete_text_button_frag_details"
-        android:textColor="@android:color/white" />
+        android:textColor="@android:color/white"
+        android:visibility="gone" />
 </LinearLayout>
