@@ -3,8 +3,8 @@ package fr.univorleans.etu.renardez.kodapp;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -16,12 +16,16 @@ import fr.univorleans.etu.renardez.kodapp.entities.daos.PositionUserDao;
 public class MenuActivity extends AppCompatActivity {
 
     private Frigo base;
+    private Button clear;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
         base = Frigo.getInstance(getApplicationContext());
+        clear = findViewById(R.id.button_clear);
+        if (base.positionUserDao().getAllPU().isEmpty()) clear.setEnabled(false);
+
     }
 
 
@@ -38,7 +42,6 @@ public class MenuActivity extends AppCompatActivity {
             }
         });
         Toast.makeText(getApplicationContext(), R.string.db_now_empty, Toast.LENGTH_SHORT).show();
-        Log.i("CLEAR_Main", "Cleared");
     }
 
 
@@ -47,7 +50,6 @@ public class MenuActivity extends AppCompatActivity {
     }
 
     public void goToListPos(View view) {
-        //TODO GOTO LIST POS
         startActivity(new Intent(this, PositionListActivity.class));
 
     }

@@ -14,10 +14,8 @@
         * longitudes - latitudes - date/heure
         * adresse de la position
     * CRUD sur les elements de la liste
-    * Itinéraire vers un enregistrement précedent 
 * Afficher Map des enregistrements (* optionnel)
 
 
 
 ## Mode d'emploi 
-???

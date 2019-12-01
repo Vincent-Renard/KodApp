@@ -270,7 +270,6 @@ public class AddLocActivity extends AppCompatActivity implements LocationListene
             getLocation();
         }
     }
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
