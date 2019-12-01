@@ -24,7 +24,12 @@ public class MenuActivity extends AppCompatActivity {
         setContentView(R.layout.activity_menu);
         base = Frigo.getInstance(getApplicationContext());
         clear = findViewById(R.id.button_clear);
-        if (base.positionUserDao().getAllPU().isEmpty()) clear.setEnabled(false);
+        AsyncTask.execute(new Runnable() {
+            @Override
+            public void run() {
+                if (base.positionUserDao().getAllPU().isEmpty()) clear.setEnabled(false);
+            }
+        });
 
     }
 
