@@ -22,5 +22,9 @@
     <string name="db_now_empty">Clear</string>
     <string name="pos_stored">Stored</string>
     <string name="tag">Tag</string>
-    <string name="display_text_tag_tag">Tag :</string>
+    <string name="display_label">Label: %s</string>
+    <string name="display_details">Details: %s</string>
+    <string name="display_date">Date: %s</string>
+    <string name="display_coords">Coordinates: Lon. %f Lat. %f</string>
+    <string name="display_address">Address: %s</string>
 </resources>

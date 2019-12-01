@@ -22,4 +22,9 @@
     <string name="delete_text_button_frag_details">Supprimer cette position</string>
     <string name="pos_stored">Ajouté</string>
     <string name="tag">Tag</string>
+    <string name="display_details">Détails : %s</string>
+    <string name="display_date">Date : %s</string>
+    <string name="display_label">Étiquette : %s</string>
+    <string name="display_coords">Coordonnées : Lon. %f Lat. %f</string>
+    <string name="display_address">Adresse : %s</string>
 </resources>

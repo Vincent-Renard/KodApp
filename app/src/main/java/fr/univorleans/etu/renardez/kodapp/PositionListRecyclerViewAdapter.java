@@ -42,20 +42,15 @@ public class PositionListRecyclerViewAdapter extends RecyclerView.Adapter<Positi
         );
         final PositionUser pos = positions.get(position);
         holder.labelPos.setText(pos.getLabel());
-        holder.datetimePos.setText(new Date(pos.getDate()).toString());
-        holder.datetimePos.setText(
-            String.format(
-                "%s\n%s",
-                DateFormat.format(
-                    DateFormat.getBestDateTimePattern(Locale.getDefault(), "ddMMyyyy"),
-                    pos.getDate()
-                ),
-                DateFormat.format(
-                    DateFormat.getBestDateTimePattern(Locale.getDefault(), "HHmmss"),
-                    pos.getDate()
-                )
-            )
-        );
+        holder.detailsPos.setText(pos.getDetails());
+        holder.datePos.setText(DateFormat.format(
+            DateFormat.getBestDateTimePattern(Locale.getDefault(), "ddMMyyyy"),
+            pos.getDate()
+        ));
+        holder.timePos.setText(DateFormat.format(
+            DateFormat.getBestDateTimePattern(Locale.getDefault(), "HHmmss"),
+            pos.getDate()
+        ));
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -72,12 +67,16 @@ public class PositionListRecyclerViewAdapter extends RecyclerView.Adapter<Positi
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         public TextView labelPos;
-        public TextView datetimePos;
+        public TextView detailsPos;
+        public TextView datePos;
+        public TextView timePos;
 
         public ViewHolder(View itemView) {
             super(itemView);
             labelPos = itemView.findViewById(R.id.item_position_list_label);
-            datetimePos = itemView.findViewById(R.id.item_position_list_date);
+            detailsPos = itemView.findViewById(R.id.item_position_list_details);
+            datePos = itemView.findViewById(R.id.item_position_list_date_date);
+            timePos = itemView.findViewById(R.id.item_position_list_date_time);
         }
     }
 }

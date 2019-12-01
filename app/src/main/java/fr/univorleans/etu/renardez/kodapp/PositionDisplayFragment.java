@@ -2,6 +2,8 @@ package fr.univorleans.etu.renardez.kodapp;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.format.DateFormat;
@@ -62,29 +64,32 @@ public class PositionDisplayFragment extends Fragment {
         this.context = context;
     }
 
-    @SuppressLint("SetTextI18n")
     public void updateText(PositionUser position) {
-        labelPos.setText(" " + position.getLabel());
-        detailsPos.setText(R.string.details + " : " + position.getDetails());
-        datePos.setText(" " +
-                DateFormat.format(
-                        DateFormat.getBestDateTimePattern(Locale.getDefault(), "ddMMyyyy HHmmss"),
-                        position.getDate()
-                )
-        );
-        String coords = position.getLongitude() + "\n" + position.getLatitude() + "\n" + position.getAltitude() + "m";
-        coordsPos.setText(coords);
+        labelPos.setText(getString(R.string.display_label, position.getLabel()));
+        detailsPos.setText(getString(R.string.display_details, position.getDetails()));
+        datePos.setText(getString(
+            R.string.display_date,
+            DateFormat.format(
+                DateFormat.getBestDateTimePattern(Locale.getDefault(), "ddMMyyyy HHmmss"),
+                position.getDate()
+            )
+        ));
+        coordsPos.setText(getString(R.string.display_coords, position.getLongitude(), position.getLatitude()));
 
+        final ColorStateList oldColors = addressPos.getTextColors();
         addressPos.setText(R.string.fetching_address);
+        addressPos.setTextColor(Color.LTGRAY);
         String url = String.format(Locale.ENGLISH, NOMINATIM_URL, position.getLatitude(), position.getLongitude());
         RequestQueue queue = Volley.newRequestQueue(context);
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
                 try {
-                    addressPos.setText(response.getString("display_name"));
+                    addressPos.setText(getString(R.string.display_address, response.getString("display_name")));
+                    addressPos.setTextColor(oldColors);
                 } catch (JSONException e) {
                     addressPos.setText(R.string.address_request_error);
+                    addressPos.setTextColor(Color.RED);
                     Log.e("GET-ADDR", e.getMessage());
                 }
             }
@@ -92,6 +97,7 @@ public class PositionDisplayFragment extends Fragment {
             @Override
             public void onErrorResponse(VolleyError error) {
                 addressPos.setText(R.string.address_request_error);
+                addressPos.setTextColor(Color.RED);
                 Log.e("GET-ADDR", error.getMessage());
             }
         });
