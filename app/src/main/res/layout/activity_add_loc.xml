@@ -5,17 +5,19 @@
     android:layout_height="match_parent"
     android:gravity="center"
     android:orientation="vertical"
-
+    android:paddingTop="4dp"
     tools:context=".AddLocActivity">
 
     <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-    <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/tag" />
+        android:orientation="horizontal"
+        android:paddingLeft="4dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/tag" />
 
         <Spinner
             android:id="@+id/detail_loc_spinner"
@@ -41,20 +43,37 @@
         android:importantForAutofill="no"
         android:inputType="textLongMessage" />
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/search_position_button"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:onClick="clickSearchPosition"
+            android:text="@string/button_search_position"/>
+
+        <Button
+            android:id="@+id/save_position_button"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:onClick="clickSavePosition"
+            android:text="@string/button_save_position"
+            android:enabled="false" />
+    </LinearLayout>
+
     <TextView
         android:id="@+id/network_text_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/network_unavailable"
         android:visibility="gone"
-        android:textColor="@android:color/holo_red_dark"/>
-
-    <Button
-        android:id="@+id/position_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="clickPos"
-        android:text="@string/button_position_txt" />
+        android:textColor="@android:color/holo_red_dark"
+        android:textAlignment="center" />
 
     <org.osmdroid.views.MapView
             android:id="@+id/map"

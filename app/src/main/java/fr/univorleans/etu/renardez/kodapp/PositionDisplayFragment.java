@@ -76,7 +76,6 @@ public class PositionDisplayFragment extends Fragment {
         ));
         coordsPos.setText(getString(R.string.display_coords, position.getLongitude(), position.getLatitude()));
 
-        final ColorStateList oldColors = addressPos.getTextColors();
         addressPos.setText(R.string.fetching_address);
         addressPos.setTextColor(Color.LTGRAY);
         String url = String.format(Locale.ENGLISH, NOMINATIM_URL, position.getLatitude(), position.getLongitude());
@@ -86,7 +85,7 @@ public class PositionDisplayFragment extends Fragment {
             public void onResponse(JSONObject response) {
                 try {
                     addressPos.setText(getString(R.string.display_address, response.getString("display_name")));
-                    addressPos.setTextColor(oldColors);
+                    addressPos.setTextColor(Color.parseColor("#808080"));
                 } catch (JSONException e) {
                     addressPos.setText(R.string.address_request_error);
                     addressPos.setTextColor(Color.RED);

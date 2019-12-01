@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">KodApp</string>
-    <string name="button_position_txt">Position</string>
     <string name="ok">OK</string>
     <string name="enable_location">Merci d\'allumer votre GPS.</string>
     <string name="button_clean_base_menu">Vidage</string>
-    <string name="button_add_pos_menu">Ajouter position</string>
-    <string name="button_goto_list_menu">Go Liste</string>
+    <string name="button_add_pos_menu">Nouvelle position</string>
+    <string name="button_goto_list_menu">Historique</string>
     <string name="other">Autre…</string>
     <string name="car">Voiture </string>
     <string name="house">Maison</string>
@@ -20,11 +19,15 @@
     <string name="fetching_address">Récupération de l\'adresse…</string>
     <string name="db_now_empty">Vidée</string>
     <string name="delete_text_button_frag_details">Supprimer cette position</string>
-    <string name="pos_stored">Ajouté</string>
-    <string name="tag">Tag</string>
+    <string name="tag">Étiquette :</string>
     <string name="display_details">Détails : %s</string>
     <string name="display_date">Date : %s</string>
     <string name="display_label">Étiquette : %s</string>
     <string name="display_coords">Coordonnées : Lon. %f Lat. %f</string>
     <string name="display_address">Adresse : %s</string>
+    <string name="button_save_position">Enregistrer</string>
+    <string name="button_search_position">Rechercher</string>
+    <string name="warn_other_empty">Merci d\'entrer une étiquette</string>
+    <string name="warn_no_position">Aucune position trouvée, merci de patienter ou rechercher de nouveau</string>
+    <string name="searching_position">Recherche de position…</string>
 </resources>

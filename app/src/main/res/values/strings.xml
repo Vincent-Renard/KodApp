@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">KodApp</string>
-    <string name="button_position_txt">Position</string>
+    <string name="button_search_position">Search</string>
+    <string name="button_save_position">Save</string>
     <string name="ok">OK</string>
     <string name="enable_location">Please enable your GPS.</string>
     <string name="button_clean_base_menu">Clear</string>
-    <string name="button_add_pos_menu">Add Pos</string>
-    <string name="button_goto_list_menu">Go Liste</string>
+    <string name="button_add_pos_menu">New position</string>
+    <string name="button_goto_list_menu">History</string>
     <string name="other">Other</string>
     <string name="car">Car</string>
     <string name="house">House</string>
@@ -14,14 +15,16 @@
     <string name="work">Work</string>
     <string name="daughter">Daughter</string>
     <string name="details">Details</string>
+    <string name="warn_other_empty">Please enter a label</string>
+    <string name="warn_no_position">No position found, please wait or search again</string>
+    <string name="searching_position">Searching position…</string>
     <string name="position_list_title">Position list</string>
     <string name="network_unavailable">No network available.</string>
     <string name="fetching_address">Fetching address…</string>
     <string name="address_request_error">Cannot retrieve address from coordinates.</string>
     <string name="delete_text_button_frag_details">Delete this pos</string>
     <string name="db_now_empty">Clear</string>
-    <string name="pos_stored">Stored</string>
-    <string name="tag">Tag</string>
+    <string name="tag">Tag:</string>
     <string name="display_label">Label: %s</string>
     <string name="display_details">Details: %s</string>
     <string name="display_date">Date: %s</string>

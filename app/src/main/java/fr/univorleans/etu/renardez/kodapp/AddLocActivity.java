@@ -56,7 +56,7 @@ public class AddLocActivity extends AppCompatActivity implements LocationListene
     private Location currentLocation;
     private Frigo base;
 
-    private Button buttonPos;
+    private Button saveButton;
     private Spinner spinner;
     private EditText otherLabelEditText;
     private EditText detailsEditText; //Can be optional
@@ -87,7 +87,7 @@ public class AddLocActivity extends AppCompatActivity implements LocationListene
 
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         base = Frigo.getInstance(getApplicationContext());
-        buttonPos = findViewById(R.id.position_button);
+        saveButton = findViewById(R.id.save_position_button);
         spinner = findViewById(R.id.detail_loc_spinner);
         otherLabelEditText = findViewById(R.id.other_edit_text);
         detailsEditText = findViewById(R.id.details_edit_text);
@@ -119,7 +119,7 @@ public class AddLocActivity extends AppCompatActivity implements LocationListene
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 if (actionId == EditorInfo.IME_ACTION_DONE) {
-                    buttonPos.callOnClick();
+                    saveButton.callOnClick();
                     return true;
                 }
                 return false;
@@ -127,9 +127,8 @@ public class AddLocActivity extends AppCompatActivity implements LocationListene
         });
 
         map.getZoomController().setVisibility(CustomZoomButtonsController.Visibility.SHOW_AND_FADEOUT);
-        map.setMultiTouchControls(1 == 1);
+        map.setMultiTouchControls(true);
         map.setVerticalMapRepetitionEnabled(false);
-        map.setHorizontalMapRepetitionEnabled(false);
         map.getController().setZoom(2.5);
     }
 
@@ -138,7 +137,6 @@ public class AddLocActivity extends AppCompatActivity implements LocationListene
         super.onResume();
         map.onResume();
         registerReceiver(networkReceiver, new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
-        getLocation();
     }
 
     @Override
@@ -170,29 +168,44 @@ public class AddLocActivity extends AppCompatActivity implements LocationListene
 
     }
 
-    public void clickPos(View view) {
+    public void clickSearchPosition(View view) {
+        Toast.makeText(getApplicationContext(), R.string.searching_position, Toast.LENGTH_SHORT).show();
         getLocation();
-        //TODO si le mec entre une chaine vide ("est con" - Romain Guidez)
-        if (currentLocation != null) {
-            AsyncTask.execute(new Runnable() {
-                @Override
-                public void run() {
-                    String label = (
-                            (spinner.getSelectedItemPosition() != labelsList.length - 1)
-                            ? spinner.getSelectedItem()
-                                    : otherLabelEditText.getText()
-                    ).toString();
-                    long id = base.positionUserDao().insertPos(new PositionUser(currentLocation, label, detailsEditText.getText().toString()));
-                    Log.i("BD", "dernier insert >" + id + " " + base.positionUserDao().getAllPU().get(base.positionUserDao().getAllPU().size() - 1).toString());
-                    Log.i("BD", base.positionUserDao().getSomePu(id).get(0).toString());
-                }
-            });
+    }
 
-            Toast.makeText(getApplicationContext(), R.string.pos_stored, Toast.LENGTH_SHORT).show();
-            otherLabelEditText.getText().clear();
-
-
+    public void clickSavePosition(View view) {
+        if (spinner.getSelectedItemPosition() == labelsList.length - 1 && otherLabelEditText.getText().toString().trim().isEmpty()) {
+            Toast.makeText(getApplicationContext(), R.string.warn_other_empty, Toast.LENGTH_LONG).show();
+            otherLabelEditText.requestFocus();
+            return;
         }
+
+        if (currentLocation == null) {
+            Toast.makeText(getApplicationContext(), R.string.warn_no_position, Toast.LENGTH_LONG).show();
+            return;
+        }
+
+        final AddLocActivity self = this;
+        AsyncTask.execute(new Runnable() {
+            @Override
+            public void run() {
+                String label = (
+                        (spinner.getSelectedItemPosition() != labelsList.length - 1)
+                                ? spinner.getSelectedItem()
+                                : otherLabelEditText.getText()
+                ).toString();
+                long id = base.positionUserDao().insertPos(new PositionUser(currentLocation, label, detailsEditText.getText().toString()));
+                Log.i("BD", "dernier insert >" + id + " " + base.positionUserDao().getAllPU().get(base.positionUserDao().getAllPU().size() - 1).toString());
+                Log.i("BD", base.positionUserDao().getSomePu(id).get(0).toString());
+
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        startActivity(new Intent(self, PositionListActivity.class));
+                    }
+                });
+            }
+        });
     }
 
     @Override
@@ -221,6 +234,7 @@ public class AddLocActivity extends AppCompatActivity implements LocationListene
         startMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
         map.getOverlays().clear();
         map.getOverlays().add(startMarker);
+        saveButton.setEnabled(true);
     }
 
     @Override
